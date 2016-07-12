@@ -1,0 +1,15 @@
+source ~/.zsh/antigen/antigen.zsh
+
+# bundles
+antigen-bundles <<BUNDLES
+  autojump
+  brew
+  git
+  git-flow
+  osx
+  urltools
+  zsh-users/zsh-syntax-highlighting
+BUNDLES
+
+# Tell antigen that you're done.
+antigen-apply

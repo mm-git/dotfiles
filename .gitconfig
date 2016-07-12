@@ -1,0 +1,14 @@
+[user]
+	name = Motoyasu Meguro
+	email = mmgithub@gmail.com
+[core]
+	autocelf = false
+	quotepath = false
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[push]
+	default = tracking
+[color]
+	ui = auto
+[merge]
+	ff = false

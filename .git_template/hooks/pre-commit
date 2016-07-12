@@ -1,0 +1,39 @@
+#!/bin/sh
+branch=`git branch | grep "*" | awk '{print $2}'`
+
+if test "${branch:0:7}" = "feature"; then
+	ticket=`git branch | grep "*" | awk '{print $2}' | sed -e "s/[^0-9]//g"`
+	ticket="0000$ticket"
+	history=`cat HISTORY | grep "#${ticket: -5}"`
+	if test "$history" = ""; then
+	    echo "HISTORY file is not changed !!"
+	    exit 1
+	fi
+	echo $history
+	exit 0
+fi
+
+if test "${branch:0:7}" = "release"; then
+	version=`git branch | grep "*" | awk '{print $2}' | sed -e "s/[^0-9|.]//g"`
+	history=`cat HISTORY | fgrep "$version"`
+	if test "$history" = ""; then
+	    echo "HISTORY file is not changed !!"
+	    exit 1
+	fi
+	echo $history
+	exit 0
+fi
+
+if test "${branch:0:6}" = "hotfix"; then
+	version=`git branch | grep "*" | awk '{print $2}' | sed -e "s/[^0-9|.]//g"`
+	history=`cat HISTORY | fgrep "$version"`
+	if test "$history" = ""; then
+	    echo "HISTORY file is not changed !!"
+	    exit 1
+	fi
+	echo $history
+	exit 0
+fi
+
+echo "This git branch is not feature/release"
+exit 1
