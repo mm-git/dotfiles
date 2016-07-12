@@ -1,5 +1,9 @@
 scriptencoding utf-8
 
+augroup AutoCmd
+  autocmd!
+augroup END
+
 augroup PluginInstall
   autocmd!
   autocmd VimEnter * if dein#check_install() | call dein#install() | endif
@@ -7,22 +11,23 @@ augroup END
 
 let s:plugin_dir = expand('~/.vim/bundle/')
 let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
-execute 'set runtimepath+=' . s:dein_dir
 
-if !isdirectory(s:dein_dir)
-  call mkdir(s:dein_dir, 'p')
-  silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_dir)
+    call mkdir(s:dein_dir, 'p')
+    silent execute printf('!git clone %s %s', 'https://github.com/Shougo/dein.vim', s:dein_dir)
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_dir, ':p')
 endif
 
 if dein#load_state(s:plugin_dir)
   call dein#begin(s:plugin_dir)
   call dein#add('Shougo/dein.vim')
   
-  call dein#add('altercation/vim-colors-solarized')
-  
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/vimproc', {'build': 'make'})
-  call dein#add('Shougo/vimfiler.git')
+  let s:toml = '~/.dein.toml'
+  let s:toml_lazy = '~/.dein_lazy.toml'
+  call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:toml_lazy, {'lazy': 1})
 
   call dein#end()
   call dein#save_state()
@@ -57,11 +62,9 @@ set noshowmode
 set directory=~/.vim/tmp
 set backupdir=~/.vim/tmp
 
-" Color Scheme
 syntax enable
 set background=dark
 let g:solarized_termtrans=1
-colorscheme solarized
 
 " Status Line
 python from powerline.vim import setup as powerline_setup

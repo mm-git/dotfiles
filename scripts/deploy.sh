@@ -7,3 +7,5 @@ for f in .??*
     [ "$f" = ".DS_Store" ] && continue
     ln -snfv $(pwd)/$f $HOME/$f
   done
+
+mkdir -p ~/.vim/tmp
