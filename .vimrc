@@ -4,10 +4,10 @@ augroup AutoCmd
   autocmd!
 augroup END
 
-augroup PluginInstall
-  autocmd!
-  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
-augroup END
+"augroup PluginInstall
+"  autocmd!
+"  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
+"augroup END
 
 let s:plugin_dir = expand('~/.vim/bundle/')
 let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
@@ -31,6 +31,11 @@ if dein#load_state(s:plugin_dir)
 
   call dein#end()
   call dein#save_state()
+endif
+
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+  call dein#recache_runtimepath()
 endif
 
 if !has('gui_running')
