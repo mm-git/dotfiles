@@ -1,14 +1,5 @@
 scriptencoding utf-8
 
-augroup AutoCmd
-  autocmd!
-augroup END
-
-"augroup PluginInstall
-"  autocmd!
-"  autocmd VimEnter * if dein#check_install() | call dein#install() | endif
-"augroup END
-
 let s:plugin_dir = expand('~/.vim/bundle/')
 let s:dein_dir = s:plugin_dir . 'repos/github.com/Shougo/dein.vim'
 
@@ -66,10 +57,6 @@ set noshowmode
 
 set directory=~/.vim/tmp
 set backupdir=~/.vim/tmp
-
-syntax enable
-set background=dark
-let g:solarized_termtrans=1
 
 " Status Line
 python from powerline.vim import setup as powerline_setup
