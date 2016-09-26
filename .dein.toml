@@ -7,6 +7,16 @@ build = 'make'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.git'
+hook_add = '''
+    autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
+    let g:vimfiler_as_default_explorer = 1
+    let g:vimfiler_safe_mode_by_default=0
+     
+    let g:netrw_liststyle = 3
+    let g:netrw_altv = 1
+    let g:netrw_alto = 1
+    let g:netrw_winsize = 80
+'''
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
@@ -32,3 +42,11 @@ repo = 'tyru/open-browser.vim'
 
 [[plugins]]
 repo = 'moll/vim-node'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+hook_add = '''
+  au BufRead,BufNewFile *.toml set filetype=toml
+'''
+
+
